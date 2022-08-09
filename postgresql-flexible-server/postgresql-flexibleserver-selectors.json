@@ -1,0 +1,113 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/0.1.2-preview/CreateUIDefinition.MultiVm.json#",
+	"handler": "Microsoft.Azure.CreateUIDef",
+	"version": "0.1.2-preview",
+	"parameters": {
+		"basics": [{}],
+		"steps": [{
+			"name": "settings",
+			"label": "PostgreSQL Flexible Server Settings",
+			"elements": [{
+					"name": "arm1",
+					"type": "Microsoft.Solutions.ArmApiControl",
+					"request": {
+						"method": "GET",
+						"path": "[concat(subscription().id, '/providers/Microsoft.DBForPostgreSql/locations/', location(), '/capabilities?api-version=2020-02-14-preview')]"
+					}
+				},
+				{
+					"name": "infobox1",
+					"type": "Microsoft.Common.InfoBox",
+					"visible": "[equals(length(steps('settings').arm1.value),0)]",
+					"options": {
+						"icon": "Error",
+						"text": "[concat(subscription().id,' is not allowed to provision Postgres Flexible Server in [',location(),']')]"
+					}
+				},
+				{
+					"name": "zone",
+					"type": "Microsoft.Common.DropDown",
+					"label": "Availability Zone (none=regional)",
+					"toolTip": "Select Availability Zone or 'none' for 'regional'.",
+					"constraints": {
+						"allowedValues": "[map(filter(steps('settings').arm1.value, (i) => contains(parse('[\"none\",\"1\",\"2\",\"3\"]'), i.zone)), (i) => parse(concat('{\"label\":\"', i.zone, '\",\"value\":\"', i.zone, '\"}')))]",
+						"required": true
+					},
+					"visible": true
+				},
+				{
+					"name": "flexEdition",
+					"type": "Microsoft.Common.DropDown",
+					"label": "Server Edition",
+					"toolTip": "Only editions 'Burstable' and 'GeneralPurpose' are supported.",
+					"constraints": {
+						"allowedValues": "[map(filter(first(map(filter(steps('settings').arm1.value, (i) => equals(i.zone,steps('settings').zone)), (j) => j.supportedFlexibleServerEditions)), (k) => contains(parse('[\"Burstable\",\"GeneralPurpose\",\"!MemoryOptimized\"]'), k.name)), (k) => parse(concat('{\"label\":\"', k.name, '\",\"value\":\"', k.name, '\"}')))]",
+						"required": true
+					},
+					"visible": true
+				},
+				{
+					"name": "serverVersion",
+					"type": "Microsoft.Common.DropDown",
+					"label": "Server Version",
+					"toolTip": "Only versions 12, 13, and 14 are supported.",
+					"constraints": {
+						"allowedValues": "[map(filter(first(map(filter(first(map(filter(steps('settings').arm1.value, (i) => equals(i.zone,steps('settings').zone)), (j) => j.supportedFlexibleServerEditions)), (k) => equals(k.name,steps('settings').flexEdition)), (l) => l.supportedServerVersions)), (m) => contains(parse('[\"!11\",\"12\",\"13\",\"14\"]'), m.name)), (m) => parse(concat('{\"label\":\"', m.name, '\",\"value\":\"', m.name, '\"}')))]",
+						"required": true
+					},
+					"visible": true
+				},
+				{
+					"name": "serverVcores",
+					"type": "Microsoft.Common.DropDown",
+					"label": "Server vCore",
+					"multiLine": true,
+					"constraints": {
+						"allowedValues": "[map(first(map(filter(first(map(filter(first(map(filter(steps('settings').arm1.value, (i) => equals(i.zone,steps('settings').zone)), (j) => j.supportedFlexibleServerEditions)), (k) => equals(k.name,steps('settings').flexEdition)), (l) => l.supportedServerVersions)), (m) => equals(m.name,steps('settings').serverVersion)), (n) => n.supportedVcores)), (o) => parse(concat('{\"label\":\"', o.name, '\", \"description\":\"', string(o.vCores), ' vCores, ', string(o.supportedIOPS), ' IOPS, ', string(o.supportedMemoryPerVcoreMB), ' MB/vCore', '\", \"value\":\"', o.name, '\"}')))]",
+						"required": true
+					},
+					"visible": true
+				},
+				{
+					"name": "storageEdition",
+					"type": "Microsoft.Common.DropDown",
+					"label": "Storage Edition",
+					"constraints": {
+						"allowedValues": "[map(first(map(filter(first(map(filter(steps('settings').arm1.value, (i) => equals(i.zone,steps('settings').zone)), (j) => j.supportedFlexibleServerEditions)), (k) => equals(k.name,steps('settings').flexEdition)), (l) => l.supportedStorageEditions)), (m) => parse(concat('{\"label\":\"', m.name, '\",\"value\":\"', m.name, '\"}')))]",
+						"required": true
+					},
+					"visible": true
+				},
+				{
+					"name": "storageMB",
+					"type": "Microsoft.Common.DropDown",
+					"label": "Storage MBs",
+					"multiLine": true,
+					"constraints": {
+						"allowedValues": "[map(first(map(filter(first(map(filter(first(map(filter(steps('settings').arm1.value, (i) => equals(i.zone,steps('settings').zone)), (j) => j.supportedFlexibleServerEditions)), (k) => equals(k.name,steps('settings').flexEdition)), (l) => l.supportedStorageEditions)), (m) => equals(m.name,steps('settings').storageEdition)), (n) => n.supportedStorageMB)), (o) => parse(concat('{\"label\":\"', o.name, ' MB\", \"description\":\"', string(o.supportedIOPS), ' IOPS', '\", \"value\":\"', o.name, '\"}')))]",
+						"required": true
+					},
+					"visible": true
+				},
+				{
+					"name": "infobox2",
+					"type": "Microsoft.Common.InfoBox",
+					"visible": true,
+					"options": {
+						"icon": "Info",
+						"text": "[concat('Selections: ', steps('settings').zone,' ',steps('settings').flexEdition,' ',steps('settings').serverVersion,' ',steps('settings').serverVcores,' ',steps('settings').storageEdition,' ',steps('settings').storageMB)]"
+					}
+				}
+			]
+		}],
+		"outputs": {
+			"location": "[location()]",
+			"postgresqlZone": "[steps('settings').zone]",
+			"postgresqlFlexEdition": "[steps('settings').flexEdition]",
+			"postgresqlServerVersion": "[steps('settings').serverVersion]",
+			"postgresqlServerVcores": "[steps('settings').serverVcores]",
+			"postgresqlStorageEdition": "[steps('settings').storageEdition]",
+			"postgresqlStorageMB": "[steps('settings').storageMB]"
+		}
+	}
+}
