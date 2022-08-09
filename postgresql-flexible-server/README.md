@@ -1,4 +1,4 @@
-# UsingArmApiControl to query PostgreSQL Flexible Server location-based capabilities
+# Using ArmApiControl to query Azure PostgreSQL Flexible Server location-based capabilities
 
 This createUiDefinition.json example shows how to use the [ArmApiControl](https://docs.microsoft.com/azure/azure-resource-manager/managed-applications/microsoft-solutions-armapicontrol) to query and display [PostgreSQL Flexible Server location-based capabilities](https://docs.microsoft.com/azure/azure-resource-manager/managed-applications/microsoft-common-dropdown) within [DropDown](https://docs.microsoft.com/azure/azure-resource-manager/managed-applications/microsoft-common-dropdown) UI elements.
 
