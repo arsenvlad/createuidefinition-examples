@@ -21,7 +21,7 @@ Azure PostgreSQL Flexible Server service has different capabilities that are bas
 
 ### Not Available
 
-![PostgreSQL Flexible Server Selectors - Not Available](./images/postgresql-flexible-server-selectors-available.png)
+![PostgreSQL Flexible Server Selectors - Not Available](./images/postgresql-flexible-server-selectors-not-available.png)
 
 ### Outputs
 
