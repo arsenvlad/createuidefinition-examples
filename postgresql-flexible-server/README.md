@@ -2,6 +2,8 @@
 
 This createUiDefinition.json example shows how to use the [ArmApiControl](https://docs.microsoft.com/azure/azure-resource-manager/managed-applications/microsoft-solutions-armapicontrol) to query and display [PostgreSQL Flexible Server location-based capabilities](https://docs.microsoft.com/rest/api/postgresql/flexibleserver(preview)/location-based-capabilities/execute?tabs=HTTP) within [DropDown](https://docs.microsoft.com/azure/azure-resource-manager/managed-applications/microsoft-common-dropdown) UI elements.
 
+See related video at [Azure createUiDefinition.json ArmApiControl using PostgreSQL Flexible Server location-based capabilities API](Azure createUiDefinition.json ArmApiControl using PostgreSQL Flexible Server location-based capabilities API)
+
 Azure PostgreSQL Flexible Server service has different capabilities that are based on the Azure subscription and region where it is being deployed. For example, a given region may only allow deployment within specific zones for a given subscription or only support specific PostgreSQL server versions. If Azure Application needs to deploy a PostgreSQL Flexible Server, it needs to be able to show only the appropriate location-based capabilities to the user  to avoid deployment-time failures that use features that are not available in the selected region and subscription.
 
 ## Steps
