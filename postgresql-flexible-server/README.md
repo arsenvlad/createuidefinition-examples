@@ -28,3 +28,7 @@ Azure PostgreSQL Flexible Server service has different capabilities that are bas
 ### Outputs
 
 ![PostgreSQL Flexible Server Selectors - Outputs](./images/postgresql-flexible-server-selectors-outputs.png)
+
+## Links
+
+https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Farsenvlad%2Fcreateuidefinition-examples%2Fmain%2Fpostgresql-flexible-server%2Ftemplate.json/createUIDefinitionUri/https%3A%2F%2Fraw.githubusercontent.com%2Farsenvlad%2Fcreateuidefinition-examples%2Fmain%2Fpostgresql-flexible-server%2Fpostgresql-flexibleserver-selectors.json

@@ -1,0 +1,33 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string"
+        },
+        "posgresqlZone": {
+            "type": "string"
+        },
+        "postgresqlFlexEdition": {
+            "type": "string"
+        },
+        "postgresqlServerVersion": {
+            "type": "string"
+        },
+        "postgresqlServerVcores": {
+            "type": "string"
+        },
+        "postgresqlStorageEdition": {
+            "type": "string"
+        },
+        "postgresqlStorageMB": {
+            "type": "string"
+        }
+    },
+    "functions": [],
+    "variables": {},
+    "resources": [
+
+    ],
+    "outputs": {}
+}
