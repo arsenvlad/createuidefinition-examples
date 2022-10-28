@@ -5,7 +5,7 @@
         "location": {
             "type": "string"
         },
-        "posgresqlZone": {
+        "postgresqlZone": {
             "type": "string"
         },
         "postgresqlFlexEdition": {
@@ -24,10 +24,7 @@
             "type": "string"
         }
     },
-    "functions": [],
-    "variables": {},
     "resources": [
-
     ],
     "outputs": {}
 }
