@@ -1,0 +1,90 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/0.1.2-preview/CreateUIDefinition.MultiVm.json#",
+	"handler": "Microsoft.Azure.CreateUIDef",
+	"version": "0.1.2-preview",
+	"parameters": {
+		"basics": [{}],
+		"steps": [{
+			"name": "settings",
+			"label": "Network Settings",
+			"elements": [
+                {
+                    "name": "vnetCombo1",
+                    "type": "Microsoft.Network.VirtualNetworkCombo",
+                    "label": {
+                        "virtualNetwork": "Virtual network",
+                        "subnets": "Subnets"
+                    },
+                    "toolTip": {
+                        "virtualNetwork": "Virtual network",
+                        "subnets": "Subnets"
+                    },
+                    "defaultValue": {
+                        "name": "vnet01",
+                        "addressPrefixSize": "/24"
+                    },
+                    "constraints": {
+                        "minAddressPrefixSize": "/24"
+                    },
+                    "options": {
+                        "hideExisting": true
+                    },
+                    "subnets": {
+                        "subnet1": {
+                            "label": "First subnet",
+                            "defaultValue": {
+                                "name": "subnet-1",
+                                "addressPrefixSize": "/26"
+                            },
+                            "constraints": {
+                                "minAddressPrefixSize": "/26",
+                                "minAddressCount": 1,
+                                "requireContiguousAddresses": true
+                            }
+                        },
+                        "subnet2": {
+                            "label": "Second subnet",
+                            "defaultValue": {
+                                "name": "subnet-2",
+                                "addressPrefixSize": "/28"
+                            },
+                            "constraints": {
+                                "minAddressPrefixSize": "/28",
+                                "minAddressCount": 1,
+                                "requireContiguousAddresses": true
+                            }
+                        },
+                        "subnet3": {
+                            "label": "Third subnet",
+                            "defaultValue": {
+                                "name": "subnet-3",
+                                "addressPrefixSize": "/28"
+                            },
+                            "constraints": {
+                                "minAddressPrefixSize": "/28",
+                                "minAddressCount": 1,
+                                "requireContiguousAddresses": true
+                            }
+                        },
+                        "subnet4": {
+                            "label": "Fourth subnet",
+                            "defaultValue": {
+                                "name": "subnet-4",
+                                "addressPrefixSize": "/28"
+                            },
+                            "constraints": {
+                                "minAddressPrefixSize": "/28",
+                                "minAddressCount": 1,
+                                "requireContiguousAddresses": true
+                            }
+                        }
+                    },
+                    "visible": true
+                }
+			]
+		}],
+		"outputs": {
+			"location": "[location()]"
+		}
+	}
+}
